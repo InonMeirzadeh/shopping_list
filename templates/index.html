@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ניהול מוצרים</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>ניהול מוצרים</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form action="{{ url_for('product.search_products') }}" method="get">
+        <input type="text" name="query" placeholder="חפש מוצר...">
+        <button type="submit">חפש</button>
+    </form>
+
+    <form action="{{ url_for('product.add_product') }}" method="post">
+        <input type="text" name="name" placeholder="שם המוצר" required>
+        <input type="number" name="quantity" placeholder="כמות" required>
+        <button type="submit">הוסף מוצר</button>
+    </form>
+
+    <h2>מוצרים קיימים</h2>
+    <select id="sort-select">
+        <option value="name">מיין לפי שם</option>
+        <option value="quantity">מיין לפי כמות</option>
+    </select>
+    <ul id="product-list">
+        {% for product in products %}
+            <li>
+                {{ product[1] }} - {{ product[2] }}
+                <form action="{{ url_for('product.update_product') }}" method="post" style="display: inline;">
+                    <input type="hidden" name="product_id" value="{{ product[0] }}">
+                    <input type="number" name="quantity" value="{{ product[2] }}" min="0">
+                    <button type="submit">עדכן</button>
+                </form>
+                <a href="{{ url_for('product.delete_product', product_id=product[0]) }}">מחק</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h2>רשימת קניות</h2>
+    <ul>
+        {% for item in shopping_list %}
+            <li>{{ item[1] }}</li>
+        {% endfor %}
+    </ul>
+
+
+
+    <canvas id="productChart"></canvas>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var ctx = document.getElementById('productChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: {{ products|map(attribute=1)|list|tojson }},
+                datasets: [{
+                    label: 'כמות מוצרים',
+                    data: {{ products|map(attribute=2)|list|tojson }},
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    });
+    </script>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

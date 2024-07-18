@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>תוצאות חיפוש</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>תוצאות חיפוש עבור: "{{ query }}"</h1>
+
+    {% if products %}
+        <ul>
+        {% for product in products %}
+            <li>
+                {{ product[1] }} - כמות: {{ product[2] }}
+                <form action="{{ url_for('product.update_product') }}" method="post" style="display: inline;">
+                    <input type="hidden" name="product_id" value="{{ product[0] }}">
+                    <input type="number" name="quantity" value="{{ product[2] }}" min="0">
+                    <button type="submit">עדכן</button>
+                </form>
+                <a href="{{ url_for('product.delete_product', product_id=product[0]) }}">מחק</a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>לא נמצאו תוצאות.</p>
+    {% endif %}
+
+    <a href="{{ url_for('product.index') }}">חזרה לעמוד הראשי</a>
+</body>
+</html>
