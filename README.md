@@ -1,4 +1,4 @@
-# Inventory Management System
+# Shopping List Management System
 
 A Flask-based application for managing product inventory and shopping lists.
 
