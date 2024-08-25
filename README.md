@@ -1,29 +1,44 @@
-Inventory Management System
-A Flask-based app to manage products and shopping lists.
-Features:
+# Inventory Management System
 
-Add, update, delete products
-Search and sort products
-Automatic shopping list updates
+A Flask-based application for managing product inventory and shopping lists.
 
-Setup:
+## Features
+- Add, update, and delete products
+- Search functionality
+- Automatic shopping list generation
+- Sort products by name or quantity
 
-Clone repo
-Install dependencies: pip install -r requirements.txt
-Initialize DB:
-from app.models import Database
-Database.init_db()
-Run: python run.py
+## Setup
+1. Clone the repository
+2. Install dependencies: `pip install -r requirements.txt`
+3. Initialize database: 
+   ```python
+   from app.models import Database
+   Database.init_db()
+
+Run the app: python run.py
 Access at http://localhost:5000
 
-Usage:
+Project Structure
 
-Add products via form
-Update/delete products on main page
-Search using top bar
-Sort using dropdown menu
-
-Structure:
-
-Backend: init.py, controllers.py, models.py, views.py, run.py
+Backend: __init__.py, controllers.py, models.py, views.py, run.py
 Frontend: index.html, search_results.html, styles.css, script.js
+
+Usage
+
+Add products via the form
+Update/delete products using buttons
+Search using the search bar
+Sort using the dropdown menu
+
+Development
+Run in debug mode:
+Copyexport FLASK_ENV=development
+python run.py
+Notes
+
+Uses SQLite database (inventory.db)
+Supports Hebrew text and RTL layout
+
+Contributing
+Contributions welcome via Pull Requests.
