@@ -1,3 +1,4 @@
+/* Base Styles for the Page */
 body {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
@@ -5,10 +6,14 @@ body {
     padding: 20px;
     direction: rtl;
     text-align: right;
+    font-size: 16px;
+    color: #333;
+    transition: background 0.5s ease;
 }
 
 h1, h2 {
-    color: #343a40;
+    color: #212529;
+    font-size: 24px;
 }
 
 form {
@@ -16,56 +21,107 @@ form {
 }
 
 input[type="text"], input[type="number"] {
-    padding: 10px;
+    padding: 12px;
     margin-left: 10px;
     border: 1px solid #ced4da;
     border-radius: 4px;
+    font-size: 16px;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+input[type="text"]:focus, input[type="number"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 button {
-    padding: 10px 20px;
+    padding: 12px 24px;
     background-color: #007bff;
     color: #fff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
 }
 
 button:hover {
     background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 300%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    transition: left 0.5s ease;
+    z-index: 0;
+}
+
+button:hover::before {
+    left: 100%;
 }
 
 ul {
     list-style-type: none;
     padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
 li {
     background-color: #fff;
     margin-bottom: 10px;
-    padding: 10px;
+    padding: 12px;
     border: 1px solid #ced4da;
     border-radius: 4px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-size: 16px;
+    flex-direction: column;
+    width: calc(33.333% - 20px);
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 a {
     color: #007bff;
     text-decoration: none;
     margin-right: 10px;
+    font-size: 16px;
+    transition: color 0.3s ease;
+    position: relative;
 }
 
 a:hover {
+    color: #0056b3;
     text-decoration: underline;
 }
 
 .alert {
-    padding: 10px;
+    padding: 12px;
     margin-bottom: 15px;
     border: 1px solid transparent;
     border-radius: 4px;
+    font-size: 16px;
 }
 
 .alert-success {
@@ -82,6 +138,7 @@ a:hover {
 
 #sort-select {
     margin-bottom: 10px;
+    font-size: 16px;
 }
 
 canvas {
@@ -90,26 +147,173 @@ canvas {
     margin-top: 20px;
 }
 
-.search-form {
-    margin-bottom: 20px;
-}
-
 .search-form input[type="text"] {
-    padding: 10px;
+    padding: 12px;
     width: 70%;
     border: 1px solid #ced4da;
     border-radius: 4px;
+    font-size: 16px;
 }
 
 .search-form button {
-    padding: 10px 20px;
-    background-color: #007bff;
+    padding: 12px 24px;
+    background-color: #0056b3;
     color: #fff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.search-form button:hover {
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.dark-mode h1, body.dark-mode h2 {
+    color: #e0e0e0;
+}
+
+body.dark-mode input[type="text"], body.dark-mode input[type="number"] {
+    background-color: #333;
+    color: #e0e0e0;
+    border: 1px solid #444;
+}
+
+body.dark-mode button {
+    background-color: #444;
+    color: #e0e0e0;
+}
+
+body.dark-mode button:hover {
+    background-color: #666;
+}
+
+body.dark-mode li {
+    background-color: #333;
+    border: 1px solid #444;
+}
+
+body.dark-mode a {
+    color: #81a1c1;
+}
+
+body.dark-mode .alert-success {
+    background-color: #263238;
+    color: #a5d6a7;
+    border-color: #388e3c;
+}
+
+body.dark-mode .alert-error {
+    background-color: #3b1f1f;
+    color: #ef9a9a;
+    border-color: #c62828;
+}
+
+/* Floating Action Button (FAB) */
+.fab {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 56px;
+    height: 56px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    z-index: 1000;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.fab:hover {
     background-color: #0056b3;
+    transform: scale(1.1);
+}
+
+.fab:focus {
+    outline: none;
+}
+
+/* Styles for Product Filter */
+.filter-menu {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 15px;
+}
+
+.filter-menu select, .filter-menu input {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* Smooth transition for filtering products */
+ul#product-list li {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+ul#product-list li.filtered-out {
+    opacity: 0;
+    transform: scale(0.9);
+    pointer-events: none;
+}
+
+/* Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Modal Button Enhancement */
+button.modal-button {
+    width: 100%;
+    margin-top: 10px;
 }
